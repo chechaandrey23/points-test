@@ -5,8 +5,6 @@ function genRange(source, placement) {
 		*[Symbol.iterator]() {
 			
 			for(let i=0; i<count; i++) {
-				let arr = Array(placement);
-				
 				let patchs = Array(placement);
 				
 				let resid = i;
@@ -17,33 +15,28 @@ function genRange(source, placement) {
 					index++;
 				} while(resid > 0);
 				
-				patchs.map((index, i) => {
-					arr[i] = source[index || 0];
+				yield patchs.map((index, i) => {
+					return source[index || 0];
 				});
-				
-				yield arr;
 			}
 		}
 	}
 }
 
-function newStr(str, args) {
-	let newStr = '';
-	
-	for(let i=0, size=str.length; i<size; i++) {
-		newStr += str[i]+(args[i]?args[i]:'');
-	}
-	
-	return newStr;
+function newStr(astr, args) {
+	return astr.reduce((acm, value, index) => {
+		return acm + value + (args[index]?args[index]:'')
+	}, '');
 }
 
 function main(str) {
 	str += '';
+	let astr = Object.assign([], str);
 	let placementSize = str.length - 1;
 	
 	let res = [];
 	for(let gen of genRange(['', '.'], placementSize)) {
-		res.push(newStr(str, gen));
+		res.push(newStr(astr, gen));
 	}
 	
 	return res;

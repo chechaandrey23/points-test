@@ -8,7 +8,6 @@ function genRange(source, placement) {
 				let arr = Array(placement);
 				
 				let patchs = Array(placement);
-				patchs.fill(0);
 				
 				let resid = i;
 				let index = 0;
@@ -19,7 +18,7 @@ function genRange(source, placement) {
 				} while(resid > 0);
 				
 				patchs.map((index, i) => {
-					arr[i] = source[index];
+					arr[i] = source[index || 0];
 				});
 				
 				yield arr;

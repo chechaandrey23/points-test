@@ -12,7 +12,6 @@ function genRange(source, placement) {
 				do {
 					let tail = resid % length;
 					patchs[index] = tail;
-					//resid = Math.floor(resid / length);
 					resid = (resid - tail)/length;
 					index++;
 				} while(resid > 0);

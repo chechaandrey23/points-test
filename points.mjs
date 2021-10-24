@@ -10,8 +10,10 @@ function genRange(source, placement) {
 				let resid = i;
 				let index = 0;
 				do {
-					patchs[index] = resid % length;
-					resid = Math.floor(resid / length);
+					let tail = resid % length;
+					patchs[index] = tail;
+					//resid = Math.floor(resid / length);
+					resid = (resid - tail)/length;
 					index++;
 				} while(resid > 0);
 				
